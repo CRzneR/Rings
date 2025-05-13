@@ -14,9 +14,9 @@ export default function TextCard() {
         The tradition has been maintained for more than eight years now. <br />{" "}
         Check out all the rings so far.{" "}
       </p>
-      <Button variant="outline" size="lg" className="mt-4">
-        Outline Button
-      </Button>
+      <button className="mt-8 border-1 border-[#cfa63d] hover:bg-[#d1a054] text-white font-semibold py-3 px-6 rounded shadow-md transition">
+        show rings
+      </button>
     </div>
   );
 }

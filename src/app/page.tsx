@@ -5,8 +5,8 @@ import TextCard from "@/components/ui/horizontalScroll/textCard.comp";
 import ScrollCard from "@/components/ui/horizontalScroll/scrollCard.comp";
 import ContactMe from "@/components/contact.comp";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
-import ZoomEffects from "@/components/ui/zoom";
 import ScrollWindow from "@/components/ui/scroll.comp";
+import ScrollingImages from "@/components/ui/pictureGrid/grid";
 
 export default function Home() {
   const items = Array.from({ length: 10 }, (_, i) => <div>Item {i + 1}</div>);
@@ -55,23 +55,19 @@ export default function Home() {
       <section className="my-24">
         <Spinning />
       </section>
-      <div className="p-10 bg-black min-h-screen flex items-center justify-center">
+      <section>
+        <ScrollWindow />
+      </section>
+      <div className="mt-30 min-h-screen flex items-center justify-center">
         <BackgroundGradient
-          className="rounded-[22px] max-w-sm p-4 sm:p-10 bg-white dark:bg-zinc-900"
+          className="rounded-[22px] max-w-sm p-12 sm:p-10 dark:bg-zinc-900"
           animate={true}
         >
           <ContactMe />
         </BackgroundGradient>
       </div>
-      <section>
-        <ScrollWindow />
-      </section>
-      <main>
-        <section style={{ height: "200vh" }}>Scroll nach unten</section>
-
-        <ZoomEffects />
-
-        <section style={{ height: "200vh" }}>Weiterer Content</section>
+      <main className="min-h-screen">
+        <ScrollingImages />
       </main>
     </>
   );

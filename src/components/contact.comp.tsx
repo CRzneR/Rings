@@ -2,7 +2,7 @@ import Heading from "./ui/heading.comp";
 
 export default function ContactMe() {
   return (
-    <div className="flex justify-between mx-24">
+    <div className="flex justify-between">
       <div>
         <Heading
           Titel="Let's connect"

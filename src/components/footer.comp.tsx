@@ -3,7 +3,7 @@
 // components/Footer.tsx
 export default function Footer() {
   return (
-    <footer className="bg-[#cfa63d] text-black px-8 py-10 mt-20">
+    <footer className="bg-[#84aeb6] text-black px-8 py-10 mt-20">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start space-y-10 md:space-y-0">
         {/* Logo / Icon */}
         <div className="grid grid-cols-3 gap-2">
