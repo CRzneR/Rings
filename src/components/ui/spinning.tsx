@@ -17,18 +17,6 @@ export function Spinning() {
       >
         Perfekte <br /> Abstimmung
       </h2>
-      <div>
-        <Image
-          src="/images/ring.png"
-          alt="Ring"
-          width={500}
-          height={500}
-          className="rounded-full"
-          style={{
-            animation: "spin 5s linear infinite",
-          }}
-        />
-      </div>
     </div>
   );
 }

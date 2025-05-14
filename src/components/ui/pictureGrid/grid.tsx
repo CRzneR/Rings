@@ -1,60 +1,47 @@
-// components/ScrollingImages.tsx
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-const imagesLeft = ["/img1.jpg", "/img2.jpg", "/img3.jpg"];
-
-const imagesRight = ["/img4.jpg", "/img5.jpg"];
-
-export default function ScrollingImages() {
+export default function ImageGrid() {
   const containerRef = useRef(null);
+
+  // Scrollfortschritt für das linke div
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["5% 5%", "70% 70%"],
   });
 
-  const leftY = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
-  const rightY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
-
-  const leftSpring = useSpring(leftY, { stiffness: 40, damping: 20 });
-  const rightSpring = useSpring(rightY, { stiffness: 40, damping: 20 });
+  // Parallax-Effekt für das linke div mit Stopp bei 80%
+  const leftY = useTransform(
+    scrollYProgress,
+    [0, 1], // Der Scrollfortschritt wird nun bei 0.8 gestoppt
+    ["0%", "-40%"]
+  );
 
   return (
-    <div
-      ref={containerRef}
-      className="h-[100vh] flex gap-4 overflow-hidden px-8"
-    >
-      {/* Left column */}
-      <motion.div
-        style={{ y: leftSpring }}
-        className="flex flex-col gap-4 flex-1"
-      >
-        {imagesLeft.map((src, index) => (
-          <img
-            key={index}
-            src={src}
-            alt={`left-${index}`}
-            className="w-full h-full object-cover rounded-2xl shadow-md"
-          />
-        ))}
-      </motion.div>
+    <div className="grid grid-cols-2 gap-10 px-10" ref={containerRef}>
+      {/* Linke Spalte mit Parallax-Effekt */}
+      <div className="flex flex-col gap-10">
+        <motion.div
+          style={{ y: leftY }}
+          className="w-full min-h-[600px] bg-red-500  shadow-lg"
+        ></motion.div>
+        <motion.div
+          style={{ y: leftY }}
+          className="w-full min-h-[600px] bg-blue-500  shadow-lg"
+        ></motion.div>
+        <motion.div
+          style={{ y: leftY }}
+          className="w-full min-h-[600px] bg-green-500  shadow-lg"
+        ></motion.div>
+      </div>
 
-      {/* Right column */}
-      <motion.div
-        style={{ y: rightSpring }}
-        className="flex flex-col gap-4 flex-1"
-      >
-        {imagesRight.map((src, index) => (
-          <img
-            key={index}
-            src={src}
-            alt={`right-${index}`}
-            className="w-full h-full object-cover rounded-2xl shadow-md"
-          />
-        ))}
-      </motion.div>
+      {/* Rechte Spalte ohne Parallax-Effekt */}
+      <div className="flex flex-col gap-10">
+        <div className="w-full min-h-[800px] bg-yellow-500  shadow-lg"></div>
+        <div className="w-full min-h-[800px] bg-purple-500  shadow-lg"></div>
+      </div>
     </div>
   );
 }

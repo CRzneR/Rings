@@ -13,7 +13,7 @@ export default function ScrollWindow() {
   const scale = useTransform(scrollYProgress, [0, 1], [1.3, 3.7]);
 
   return (
-    <div ref={container} className="h-[300vh] relative mb-50">
+    <div ref={container} className="h-[300vh] relative mb-35">
       <div className="sticky top-0 h-[100vh]">
         <motion.div
           style={{ scale }}

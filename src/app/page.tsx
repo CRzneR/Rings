@@ -6,7 +6,8 @@ import ScrollCard from "@/components/ui/horizontalScroll/scrollCard.comp";
 import ContactMe from "@/components/contact.comp";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import ScrollWindow from "@/components/ui/scroll.comp";
-import ScrollingImages from "@/components/ui/pictureGrid/grid";
+import ImageGrid from "@/components/ui/pictureGrid/grid";
+import ThreeJsModel from "@/components/ui/threeJs/threeJsModel";
 
 export default function Home() {
   const items = Array.from({ length: 10 }, (_, i) => <div>Item {i + 1}</div>);
@@ -54,10 +55,18 @@ export default function Home() {
       </section>
       <section className="my-24">
         <Spinning />
+        <div>
+          <div className="threeJsCanvas">
+            <ThreeJsModel />
+          </div>
+        </div>
       </section>
       <section>
         <ScrollWindow />
       </section>
+      <main>
+        <ImageGrid />
+      </main>
       <div className="mt-30 min-h-screen flex items-center justify-center">
         <BackgroundGradient
           className="rounded-[22px] max-w-sm p-12 sm:p-10 dark:bg-zinc-900"
@@ -66,9 +75,6 @@ export default function Home() {
           <ContactMe />
         </BackgroundGradient>
       </div>
-      <main className="min-h-screen">
-        <ScrollingImages />
-      </main>
     </>
   );
 }
