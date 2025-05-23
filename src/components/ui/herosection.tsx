@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 export default function HeroSection() {
   return (
     <section className="text-center py-24 px-6">
-      <h1 className="text-5xl md:text-8xl font-bold leading-tight">
+      <h1 className="text-8xl md:text-10xl font-bold leading-tight">
         Built for.{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">
           Greatness.

@@ -7,7 +7,7 @@ interface ScrollCardProps {
 export default function ScrollCard({ imageSrc, titel, text }: ScrollCardProps) {
   return (
     <div
-      className="w-[440px] h-[540px] px-6 py-4 overflow-hidden "
+      className="w-[440px] h-[540px] bg-cover bg-center px-6 py-4 overflow-hidden "
       style={{ backgroundImage: `url(${imageSrc})` }}
     >
       {/* Schwarzes Overlay */}

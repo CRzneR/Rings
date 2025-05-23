@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export function Spinning() {
   return (
     <div className="items-center justify-center mx-auto flex flex-col">
@@ -10,9 +8,10 @@ export function Spinning() {
           textAlign: "center",
           WebkitBackgroundClip: "text",
           color: "transparent",
-          fontSize: "134px", // Ändere die Größe nach Bedarf
+          fontSize: "144px", // Ändere die Größe nach Bedarf
           fontWeight: "bold",
           lineHeight: "1.2",
+          letterSpacing: "0.03em",
         }}
       >
         Perfekte <br /> Abstimmung

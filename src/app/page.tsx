@@ -1,13 +1,16 @@
 import HeroSection from "../components/ui/herosection";
 import { Spinning } from "@/components/ui/spinning";
-import HorizontalScroll from "@/components/ui/horizontalScroll/horizontalScroll.comp";
-import TextCard from "@/components/ui/horizontalScroll/textCard.comp";
-import ScrollCard from "@/components/ui/horizontalScroll/scrollCard.comp";
+import HorizontalScroll from "@/components/ui/vorlage/horizontalScroll/horizontalScroll.comp";
+import TextCard from "@/components/ui/textCard.comp";
+import ScrollCard from "@/components/ui/vorlage/horizontalScroll/scrollCard.comp";
 import ContactMe from "@/components/contact.comp";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import ScrollWindow from "@/components/ui/scroll.comp";
 import ImageGrid from "@/components/ui/pictureGrid/grid";
-import ThreeJsModel from "@/components/ui/threeJs/threeJsModel";
+import ThreeScene from "@/components/ui/threeJs/ThreeScene";
+import TextElement from "@/components/ui/textElement";
+import Example from "@/components/ui/vorlage/horizontalScroll/scrollY";
+import Test from "@/components/ui/test";
 
 export default function Home() {
   const items = Array.from({ length: 10 }, (_, i) => <div>Item {i + 1}</div>);
@@ -17,51 +20,25 @@ export default function Home() {
       <section className="my-24">
         <HeroSection />
       </section>
+      <TextElement
+        top="Leidenschaft bekam eine Plattform um Sie zu zeigen"
+        text="dadadadw dadawd dadwad awda d ad a  dad wada wd ad daw da dawd adawdadsd wad sad daw"
+      />
+      <Test />
 
-      <section className="p-8 my-24">
-        <HorizontalScroll>
-          <div>
-            <TextCard />
-          </div>
-          <div>
-            <ScrollCard
-              imageSrc="https://picsum.photos/440/540/?blur"
-              titel="CAD"
-              text="Konsturktion mithilfe von Rhinoceros"
-            />
-          </div>
-          <div>
-            <ScrollCard
-              imageSrc="https://picsum.photos/440/540/?blur"
-              titel="3D Printing"
-              text="Hergestellt aus Resin durch SLA Technik"
-            />
-          </div>
-          <div>
-            <ScrollCard
-              imageSrc="https://picsum.photos/440/540/?blur"
-              titel="Electroplating"
-              text="Veredelt mit 24 Karat Gold"
-            />
-          </div>
-          <div>
-            <ScrollCard
-              imageSrc="https://picsum.photos/440/540/?blur"
-              titel="Finishing"
-              text="Feinschliff und Finish"
-            />
-          </div>
-        </HorizontalScroll>
-      </section>
+      <div>
+        <TextElement
+          top="Leidenschaft bekam eine Plattform um Sie zu zeigen"
+          text="dadadadw dadawd dadwad awda d ad a  dad wada wd ad daw da dawd adawdadsd wad sad daw"
+        />
+      </div>
       <section className="my-24">
         <Spinning />
         <div>
-          <div className="threeJsCanvas">
-            <ThreeJsModel />
-          </div>
+          <main>
+            <ThreeScene />
+          </main>
         </div>
-      </section>
-      <section>
         <ScrollWindow />
       </section>
       <main>
