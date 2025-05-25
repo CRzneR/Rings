@@ -1,3 +1,4 @@
+import { GradientActionButton } from "./gradientButton";
 import Heading from "./heading.comp";
 
 export default function TextCard() {
@@ -14,9 +15,12 @@ export default function TextCard() {
         mindestens genau so <br /> lange bestehen. Sehen Sie sich die einzelnen
         Schritte bis zum fertigen Ring an.
       </p>
-      <button className="mt-8 border-1 border-[#cfa63d] hover:bg-[#d1a054] text-white font-semibold py-3 px-6 rounded shadow-md transition">
-        show rings
-      </button>
+      <div>
+        <GradientActionButton
+          onClick={() => alert("Clicked!")}
+          text="Show rings"
+        />
+      </div>
     </div>
   );
 }

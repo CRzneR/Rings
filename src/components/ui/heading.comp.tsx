@@ -23,7 +23,7 @@ const Heading: React.FC<HeadingProps> = ({
   };
 
   const colorClasses = {
-    primary: "text-blue-600", // Standardfarbe
+    primary: "text-gray-300", // Standardfarbe
     secondary: "text-green-600", // Sekundäre Farbe
     tertiary: "text-red-600", // Tertiäre Farbe
     gray: "text-gray-700", // Graue Farbe

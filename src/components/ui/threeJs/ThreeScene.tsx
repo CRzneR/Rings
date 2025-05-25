@@ -3,8 +3,8 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-// import { OrbitControls } from "three-stdlib";
-import { SpotLightHelper, DirectionalLightHelper, CameraHelper } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 
 const ThreeScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,96 +12,118 @@ const ThreeScene: React.FC = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Scene setup
+    // Scene & Renderer
     const scene = new THREE.Scene();
-    scene.background = null; // Transparent
-
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      containerRef.current.clientWidth / containerRef.current.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(0, 1, 5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(
       containerRef.current.clientWidth,
       containerRef.current.clientHeight
     );
+
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     containerRef.current.appendChild(renderer.domElement);
 
-    // Lights
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Weißes Umgebungslicht, Intensität 1.5
-    scene.add(ambientLight);
-    // SpotLight
-    const spotLight = new THREE.SpotLight(0xffffff, 20);
-    spotLight.position.set(7, 7, 5);
-    spotLight.angle = Math.PI / 3;
-    spotLight.penumbra = 0.2;
-    spotLight.castShadow = true;
-    scene.add(spotLight);
-
-    // SpotLight Helper
-    const spotLightHelper = new THREE.SpotLightHelper(spotLight);
-    scene.add(spotLightHelper);
-
-    // Wenn du die Schattenkamera vom SpotLight sehen willst:
-    const spotLightCameraHelper = new THREE.CameraHelper(
-      spotLight.shadow.camera
+    // Camera
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      containerRef.current.clientWidth / containerRef.current.clientHeight,
+      0.1,
+      1000
     );
-    scene.add(spotLightCameraHelper);
+    camera.position.set(0, 1.5, 5);
 
-    // DirectionalLight
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
-    directionalLight.position.set(7, 7, -7);
-    directionalLight.castShadow = true;
-    scene.add(directionalLight);
-
-    // DirectionalLight Helper
-    const directionalLightHelper = new THREE.DirectionalLightHelper(
-      directionalLight,
-      2
-    );
-    scene.add(directionalLightHelper);
-
-    // Orbit controls
+    // // OrbitControls
     // const controls = new OrbitControls(camera, renderer.domElement);
     // controls.enableDamping = true;
 
-    // Load model + apply material customization
+    // HDRI Environment Map
+    new RGBELoader()
+      .setPath("/hdr/") // → dein Ordner für HDR-Dateien
+      .load("studio_small_08_1k.hdr", (texture) => {
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        scene.environment = texture;
+        scene.background = null;
+      });
+
+    // Licht
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    const spotLight = new THREE.SpotLight(0xffffff, 4);
+    spotLight.position.set(4, 5, 4);
+    spotLight.angle = Math.PI / 5;
+    spotLight.penumbra = 0.5;
+    spotLight.castShadow = true;
+    spotLight.shadow.bias = -0.0005;
+    spotLight.shadow.mapSize.set(1024, 1024);
+    scene.add(spotLight);
+
+    const spotLight2 = new THREE.SpotLight(0xffffff, 3);
+    spotLight2.position.set(-4, 5, 4);
+    spotLight2.angle = Math.PI / 5;
+    spotLight2.penumbra = 0.5;
+    spotLight2.castShadow = true;
+    scene.add(spotLight2);
+
+    const spotLight3 = new THREE.SpotLight(0xffffff, 2);
+    spotLight3.position.set(0, 6, -6);
+    spotLight3.angle = Math.PI / 5;
+    spotLight3.penumbra = 0.5;
+    spotLight3.castShadow = true;
+    scene.add(spotLight3);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    directionalLight.position.set(5, 10, -5);
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
+
+    // Modell laden
     const loader = new GLTFLoader();
     let model: THREE.Object3D | null = null;
 
     loader.load(
-      "/models/Ring24.gltf",
+      "/models/scene.glb",
       (gltf) => {
         model = gltf.scene;
         model.scale.set(0.45, 0.45, 0.45);
 
-        // Material einfüegen
-        // model.traverse((child) => {
-        //   if ((child as THREE.Mesh).isMesh) {
-        //     const mesh = child as THREE.Mesh;
-        //     if (
-        //       mesh.material instanceof THREE.MeshStandardMaterial &&
-        //       mesh.material.name === "Poliertes Gold"
-        //     ) {
-        //       mesh.material.color.set("#ffd700"); // Gold
-        //     }
-        //   }
-        // });
+        model.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            const mesh = child as THREE.Mesh;
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            if (
+              (mesh.material as THREE.MeshStandardMaterial).envMapIntensity !==
+              undefined
+            ) {
+              (
+                mesh.material as THREE.MeshStandardMaterial
+              ).envMapIntensity = 1.2; // macht HDR-Effekte sichtbar
+            }
+          }
+        });
 
         scene.add(model);
+
+        // Lichter auf das Modell ausrichten
+        const box = new THREE.Box3().setFromObject(model);
+        const center = new THREE.Vector3();
+        box.getCenter(center);
+
+        spotLight.target.position.copy(center);
+        spotLight2.target.position.copy(center);
+        spotLight3.target.position.copy(center);
+        scene.add(spotLight.target, spotLight2.target, spotLight3.target);
       },
       undefined,
-      (error) => {
-        console.error("Fehler beim Laden des Modells:", error);
-      }
+      (err) => console.error("Fehler beim Laden:", err)
     );
 
-    // Resize handler
+    // Resize
     const handleResize = () => {
       if (!containerRef.current) return;
       const width = containerRef.current.clientWidth;
@@ -112,20 +134,16 @@ const ThreeScene: React.FC = () => {
     };
     window.addEventListener("resize", handleResize);
 
-    // Animation loop
+    // Animation
     const animate = () => {
       requestAnimationFrame(animate);
-
-      // Hier das Modell um die eigene Achse drehen (z.B. um die Y-Achse)
-      if (model) {
-        model.rotation.y += 0.01; // Drehung um die Y-Achse
-      }
       // controls.update();
+
+      if (model) model.rotation.y += 0.005;
       renderer.render(scene, camera);
     };
     animate();
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
       renderer.dispose();

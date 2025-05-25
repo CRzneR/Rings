@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { GradientActionButton } from "./gradientButton";
 
 export default function HeroSection() {
   return (
@@ -17,11 +17,9 @@ export default function HeroSection() {
         designed to be worn not just tody, but for generations to come.
       </p>
       <div className="mt-8 flex justify-center gap-4 flex-wrap">
+        <GradientActionButton label="Show Rings" className="w-34" />
         <button className="border-1 border-[#cfa63d] hover:bg-[#d1a054] text-white font-semibold py-3 px-6 rounded shadow-md transition">
-          show rings
-        </button>
-        <button className="border-1 border border-gray-300 rounded py-3 px-6 hover:bg-white hover:text-black font-semibold">
-          get in touch
+          Get in touch
         </button>
       </div>
     </section>
