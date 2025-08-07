@@ -9,6 +9,7 @@ import XScrollComp from "@/components/ui/XScrollComp";
 import Parallax from "@/components/ui/parallax";
 
 import Contact from "@/components/contact.comp";
+import BlurredScrollText from "@/components/BlurredScrollText";
 
 export default function Home() {
   const items = Array.from({ length: 10 }, (_, i) => <div>Item {i + 1}</div>);
@@ -22,6 +23,7 @@ export default function Home() {
         top="Leidenschaft bekam eine Plattform um Sie zu zeigen"
         text="Hier präsentiere ich eine Auswahl selbst erstellter 3D-Modelle – gestaltet, gerendert und eingebunden in eine von mir entwickelte Webanwendung. Diese Seite dient nicht nur zur Präsentation meiner Modelle, sondern zeigt auch meine Fähigkeiten in Webentwicklung und 3D-Visualisierung. Viel Spaß beim Stöbern!"
       />
+      <BlurredScrollText />
       <XScrollComp />
 
       <section className="my-24">

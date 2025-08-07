@@ -8,7 +8,7 @@ type GradientHeadingProps = {
 export function GradientHeading({
   text,
   fontSize = "144px",
-  gradient = "linear-gradient(45deg, #ffcc00, #ff9900, #ff6600)",
+  gradient = "linear-gradient(45deg, #CE9D0B, #EFBD54, #F2D589)",
   className = "",
 }: GradientHeadingProps) {
   return (

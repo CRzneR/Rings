@@ -9,11 +9,11 @@ interface TextElementProps {
 export const TextElement: React.FC<TextElementProps> = ({ top, text }) => {
   return (
     <FadeIn>
-      <div className="text-left mx-90 p-8 py-34">
-        <p className="text-6xl max-w-[600px] font-bold mb-4 text-gray-300">
+      <div className="mx-auto max-w-[600px] py-40">
+        <p className="text-6xl  font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#1A1001] via-[#392403] to-[#7E5107]">
           {top}
         </p>
-        <p className="text-2xl my-12 text-gray-300 font-light">{text}</p>
+        <p className="text-2xl my-12 text-gray-700 font-light">{text}</p>
       </div>
     </FadeIn>
   );

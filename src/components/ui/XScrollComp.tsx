@@ -3,7 +3,6 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import TextCard from "./textCard.comp";
-import ScrollCard from "./vorlage/horizontalScroll/scrollCard.comp";
 
 const XScrollComp = () => {
   return <HorizontalScrollCarousel />;

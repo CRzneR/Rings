@@ -21,7 +21,7 @@ export default function ScrollWindow() {
         <div className="sticky top-0 h-[100vh] flex items-center justify-center">
           <motion.div
             style={{ scale }}
-            className="relative w-[66vh] h-[33.6vh]"
+            className="relative w-[64vh] h-[33.6vh]"
           >
             <Image
               src="/img/ringszoom.jpeg"
