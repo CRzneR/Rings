@@ -24,7 +24,7 @@ const ThreeScene: React.FC = () => {
     renderer.toneMappingExposure = 1.3;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.outputColorSpace = "srgb";
     renderer.physicallyCorrectLights = true;
 
     containerRef.current.appendChild(renderer.domElement);
