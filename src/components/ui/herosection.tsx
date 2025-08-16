@@ -17,11 +17,11 @@ export default function HeroSection() {
         designed to be worn not just tody, but for generations to come.
       </p>
       <div className="mt-8 flex justify-center gap-4 flex-wrap">
-        <button className="border-1 rounded-xl bg-black text-white hover:bg-[#d1a054] text-black font-semibold py-3 px-6 rounded shadow-md transition">
-          Get in touch
+        <button className="border-1 rounded-xl bg-black text-white hover:bg-[#d1a054] font-semibold py-3 px-6 rounded shadow-md transition">
+          Show the rings!
         </button>
 
-        <button className="border-1 rounded-xl border-black hover:bg-[#d1a054] text-black font-semibold py-3 px-6 rounded shadow-md transition">
+        <button className="rounded-xl border border-black text-black hover:bg-[#d1a054] hover:border-none hover:text-white font-semibold py-3 px-6 shadow-md transition">
           Get in touch
         </button>
       </div>

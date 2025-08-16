@@ -16,10 +16,9 @@ export default function TextCard() {
         Schritte bis zum fertigen Ring an.
       </p>
       <div>
-        <GradientActionButton
-          onClick={() => alert("Clicked!")}
-          text="Show rings"
-        />
+        <button className="border-1 rounded-xl mt-4 bg-black text-white hover:bg-[#d1a054] font-semibold py-3 px-6 rounded shadow-md transition">
+          To the history
+        </button>
       </div>
     </div>
   );
