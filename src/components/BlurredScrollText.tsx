@@ -33,7 +33,7 @@ const BlurredScrollText = () => {
       if (startScrollY === null) return;
 
       const scrollTop = window.scrollY;
-      const maxScroll = window.innerHeight; // Wie viel Scroll soll nötig sein für max Blur
+      const maxScroll = window.innerHeight; // etwas kleiner für mobile screens
       const maxBlur = 8;
 
       const scrolledSinceStart = scrollTop - startScrollY;
@@ -49,7 +49,8 @@ const BlurredScrollText = () => {
   }, [startScrollY]);
 
   return (
-    <div className="relative h-[190vh]">
+    <div className="relative h-[160vh] sm:h-[180vh] md:h-[190vh]">
+      {/* Hintergrundbild mit Blur */}
       <div
         ref={imageRef}
         className="sticky top-0 h-screen -z-10 overflow-hidden"
@@ -64,15 +65,16 @@ const BlurredScrollText = () => {
         ></div>
       </div>
 
-      <div className="max-w-[600px] mx-auto pt-10">
-        <h2 className="text-6xl font-bold text-white text-left mb-4">
-          Legendäre technische Erfindung
+      {/* Text Content */}
+      <div className="max-w-[800px] mx-auto pt-10 px-4">
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white text-left mb-4 leading-tight">
+          Präzision in Gold und Silber
         </h2>
-        <p className="text-2xl my-12 text-gray-200 font-light text-left max-w-3xl">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum
-          cupiditate ducimus illo laudantium reiciendis impedit molestiae
-          quibusdam error nam facilis possimus explicabo, blanditiis dolorum
-          inventore illum numquam quas quasi velit.
+        <p className="text-base sm:text-lg md:text-2xl my-6 sm:my-8 md:my-12 text-gray-200 font-light text-left max-w-3xl">
+          Unsere Ringe werden zunächst als CAD-Modelle konzipiert, um jede Linie
+          und Gravur perfekt zu planen. Anschließend erfolgt der 3D-Druck und
+          die metallische Veredelung, sodass jeder Ring nicht nur ein Symbol des
+          Sieges, sondern auch ein Kunstwerk für sich ist.d
         </p>
       </div>
     </div>

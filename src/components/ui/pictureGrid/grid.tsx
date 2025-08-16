@@ -14,19 +14,18 @@ export default function ImageGrid() {
   });
 
   // Parallax-Effekt für das linke div mit Stopp bei 80%
-  const leftY = useTransform(
-    scrollYProgress,
-    [0, 1], // Der Scrollfortschritt wird nun bei 0.8 gestoppt
-    ["0%", "-37.5%"]
-  );
+  const leftY = useTransform(scrollYProgress, [0, 1], ["0%", "-37.5%"]);
 
   return (
-    <div className="grid grid-cols-2 gap-10 bg-gray-100" ref={containerRef}>
+    <div
+      className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 bg-gray-100 p-4 md:p-0"
+      ref={containerRef}
+    >
       {/* Linke Spalte mit Parallax-Effekt */}
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-6 md:gap-10">
         <motion.div
           style={{ y: leftY }}
-          className="w-full h-[670px] bg-red-500  shadow-lg"
+          className="w-full h-[400px] md:h-[670px] bg-red-500 shadow-lg"
         >
           <Picture
             imageSrc="/img/detail3.png"
@@ -36,7 +35,7 @@ export default function ImageGrid() {
         </motion.div>
         <motion.div
           style={{ y: leftY }}
-          className="w-full h-[670px] bg-blue-500  shadow-lg"
+          className="w-full h-[400px] md:h-[670px] bg-blue-500 shadow-lg"
         >
           <Picture
             imageSrc="/img/draufsicht.png"
@@ -46,7 +45,7 @@ export default function ImageGrid() {
         </motion.div>
         <motion.div
           style={{ y: leftY }}
-          className="w-full h-[670px] bg-green-500  shadow-lg"
+          className="w-full h-[400px] md:h-[670px] bg-green-500 shadow-lg"
         >
           <Picture
             imageSrc="/img/detail1.png"
@@ -57,17 +56,15 @@ export default function ImageGrid() {
       </div>
 
       {/* Rechte Spalte ohne Parallax-Effekt */}
-      <div className="flex flex-col  gap-10">
-        <div className="w-full h-[900px]  shadow-lg">
-          <div>
-            <Picture
-              imageSrc="/img/perspektive1.png"
-              title="Ring 2024"
-              country="Perspektive"
-            />
-          </div>
+      <div className="flex flex-col gap-6 md:gap-10">
+        <div className="w-full h-[500px] md:h-[900px] shadow-lg">
+          <Picture
+            imageSrc="/img/perspektive1.png"
+            title="Ring 2024"
+            country="Perspektive"
+          />
         </div>
-        <div className="w-full h-[900px] bg-purple-500  shadow-lg">
+        <div className="w-full h-[500px] md:h-[900px] bg-purple-500 shadow-lg">
           <Picture
             imageSrc="/img/seitenansicht.png"
             title="Ring 2024"
