@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GradientActionButton } from "./gradientButton";
 
 export default function HeroSection() {
@@ -12,16 +13,20 @@ export default function HeroSection() {
         Worn by Champions.
       </h1>
 
-      <p className="mt-4 md:mt-6 text-gray-500 text-base sm:text-lg max-w-md sm:max-w-xl md:max-w-2xl mx-auto">
-        At LOTR, we don’t just craft jewelry – we forge enduring symbols of
-        victory, pride, and legacy. Each piece is a celebration of achievement,
-        designed to be worn not just today, but for generations to come.
+      <p className="mt-4 md:mt-6 text-gray-500 text-base sm:text-lg md:text-2xl max-w-md sm:max-w-xl md:max-w-2xl mx-auto">
+        At Factory LNG, we don’t just craft jewelry – we forge enduring symbols
+        of victory, pride, and legacy. Each piece is a celebration of
+        achievement, designed to be worn not just today, but for generations to
+        come.
       </p>
 
       <div className="mt-6 md:mt-8 flex flex-col sm:flex-row justify-center gap-4">
-        <button className="w-full sm:w-auto rounded-xl bg-black text-white hover:bg-[#d1a054] font-semibold py-3 px-6 shadow-md transition">
+        <Link
+          href="/rings"
+          className="w-full sm:w-auto rounded-xl bg-black text-white hover:bg-[#d1a054] font-semibold py-3 px-6 shadow-md transition inline-block text-center"
+        >
           Show the rings!
-        </button>
+        </Link>
 
         <button className="w-full sm:w-auto rounded-xl border border-black text-black hover:bg-[#d1a054] hover:border-none hover:text-white font-semibold py-3 px-6 shadow-md transition">
           Get in touch

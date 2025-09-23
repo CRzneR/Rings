@@ -34,9 +34,7 @@ export default function Home() {
           end={-50}
         />
         <div>
-          <main>
-            <ThreeScene />
-          </main>
+          <ThreeScene />
         </div>
       </section>
       <section className="bg-gray-100 ">

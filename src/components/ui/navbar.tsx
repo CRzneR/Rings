@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="text-xl font-bold text-black">
-          <Link href="/">Lord of Rings</Link>
+          <Link href="/">Factory LNG</Link>
         </div>
 
         {/* Desktop Nav */}

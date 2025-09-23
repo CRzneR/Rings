@@ -8,164 +8,172 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 const ThreeScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Persistente Refs (werden nicht bei jedem Render neu angelegt)
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const modelRef = useRef<THREE.Object3D | null>(null);
+
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Scene & Renderer
-    const scene = new THREE.Scene();
+    // --- Szene nur einmal erstellen ---
+    if (!sceneRef.current) {
+      sceneRef.current = new THREE.Scene();
+    }
+    const scene = sceneRef.current;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(
-      containerRef.current.clientWidth,
-      containerRef.current.clientHeight
-    );
-
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.3;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.outputColorSpace = "srgb";
-    (renderer as any).physicallyCorrectLights = true;
-
-    containerRef.current.appendChild(renderer.domElement);
-
-    // Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      containerRef.current.clientWidth / containerRef.current.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(0, 1.5, 5);
-
-    // HDRI Environment Map
-    new RGBELoader()
-      .setPath("/hdr/")
-      .load("studio_small_08_1k.hdr", (texture) => {
-        const pmremGenerator = new THREE.PMREMGenerator(renderer);
-        pmremGenerator.compileEquirectangularShader();
-        const envMap = pmremGenerator.fromEquirectangular(texture).texture;
-        scene.environment = envMap;
-        scene.background = null;
-        texture.dispose();
-        pmremGenerator.dispose();
+    // --- Renderer nur einmal erstellen ---
+    if (!rendererRef.current) {
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
       });
+      renderer.setSize(
+        containerRef.current.clientWidth,
+        containerRef.current.clientHeight
+      );
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.3;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      (renderer as any).physicallyCorrectLights = true;
 
-    // Lichtsetup (Frontal + zusätzliche Lichter)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 3);
-    keyLight.position.set(0, 3, 5); // frontal, leicht oberhalb
-    keyLight.castShadow = true;
-    keyLight.shadow.mapSize.set(2048, 2048);
-    scene.add(keyLight);
+      rendererRef.current = renderer;
+    }
 
-    const fillLightLeft = new THREE.DirectionalLight(0xffffff, 1.2);
-    fillLightLeft.position.set(-3, 2, 2); // schwaches Fülllicht von links
-    fillLightLeft.castShadow = false;
-    scene.add(fillLightLeft);
+    // Falls DOM-Element noch nicht drin hängt → hinzufügen
+    if (
+      rendererRef.current &&
+      !containerRef.current.contains(rendererRef.current.domElement)
+    ) {
+      containerRef.current.appendChild(rendererRef.current.domElement);
+    }
 
-    const fillLightRight = new THREE.DirectionalLight(0xffffff, 1);
-    fillLightRight.position.set(3, 2, 2); // schwaches Fülllicht von rechts
-    fillLightRight.castShadow = false;
-    scene.add(fillLightRight);
+    const renderer = rendererRef.current;
 
-    const rimLight = new THREE.DirectionalLight(0x88bbff, 1.2);
-    rimLight.position.set(0, 6, -6); // Konturenlicht von hinten
-    rimLight.castShadow = false;
-    scene.add(rimLight);
+    // --- Kamera nur einmal erstellen ---
+    if (!cameraRef.current) {
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        containerRef.current.clientWidth / containerRef.current.clientHeight,
+        0.1,
+        1000
+      );
+      camera.position.set(0, 1.5, 5);
+      cameraRef.current = camera;
+    }
+    const camera = cameraRef.current;
 
-    const bottomLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    bottomLight.position.set(0, -2, 3); // von unten schräg nach vorne
-    bottomLight.castShadow = false;
-    scene.add(bottomLight);
-
-    const topLight = new THREE.DirectionalLight(0xffffff, 1);
-    topLight.position.set(0, 5, -2); // von oben schräg nach hinten
-    topLight.castShadow = false;
-    scene.add(topLight);
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-    scene.add(ambientLight);
-
-    // Modell laden
-    const loader = new GLTFLoader();
-    let model: THREE.Object3D | null = null;
-
-    loader.load(
-      "/models/scene.glb",
-      (gltf) => {
-        model = gltf.scene;
-        model.scale.set(0.45, 0.45, 0.45);
-
-        // Modell leicht nach hinten verschieben
-        model.position.z = -0.5;
-
-        model.traverse((child) => {
-          if ((child as THREE.Mesh).isMesh) {
-            const mesh = child as THREE.Mesh;
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
-            if (
-              (mesh.material as THREE.MeshStandardMaterial).envMapIntensity !==
-              undefined
-            ) {
-              (
-                mesh.material as THREE.MeshStandardMaterial
-              ).envMapIntensity = 1.5;
-            }
-          }
+    // --- HDR Environment (einmalig) ---
+    if (!scene.environment) {
+      new RGBELoader()
+        .setPath("/hdr/")
+        .load("studio_small_08_1k.hdr", (texture) => {
+          const pmremGenerator = new THREE.PMREMGenerator(renderer!);
+          pmremGenerator.compileEquirectangularShader();
+          const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+          scene.environment = envMap;
+          scene.background = null;
+          texture.dispose();
+          pmremGenerator.dispose();
         });
+    }
 
-        scene.add(model);
+    // --- Lights (einmalig) ---
+    if (scene.children.filter((c) => c.type.includes("Light")).length === 0) {
+      const keyLight = new THREE.DirectionalLight(0xffffff, 3);
+      keyLight.position.set(0, 3, 5);
+      keyLight.castShadow = true;
+      keyLight.shadow.mapSize.set(2048, 2048);
+      scene.add(keyLight);
 
-        // Lichter auf das Modell ausrichten
-        const box = new THREE.Box3().setFromObject(model);
-        const center = new THREE.Vector3();
-        box.getCenter(center);
+      const fillLightLeft = new THREE.DirectionalLight(0xffffff, 1.2);
+      fillLightLeft.position.set(-3, 2, 2);
+      scene.add(fillLightLeft);
 
-        keyLight.target.position.copy(center);
-        fillLightLeft.target.position.copy(center);
-        fillLightRight.target.position.copy(center);
-        rimLight.target.position.copy(center);
-        bottomLight.target.position.copy(center);
-        topLight.target.position.copy(center);
+      const fillLightRight = new THREE.DirectionalLight(0xffffff, 1);
+      fillLightRight.position.set(3, 2, 2);
+      scene.add(fillLightRight);
 
-        scene.add(
-          keyLight.target,
-          fillLightLeft.target,
-          fillLightRight.target,
-          rimLight.target,
-          bottomLight.target,
-          topLight.target
-        );
-      },
-      undefined,
-      (err) => console.error("Fehler beim Laden:", err)
-    );
+      const rimLight = new THREE.DirectionalLight(0x88bbff, 1.2);
+      rimLight.position.set(0, 6, -6);
+      scene.add(rimLight);
 
-    // Resize
+      const bottomLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      bottomLight.position.set(0, -2, 3);
+      scene.add(bottomLight);
+
+      const topLight = new THREE.DirectionalLight(0xffffff, 1);
+      topLight.position.set(0, 5, -2);
+      scene.add(topLight);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+      scene.add(ambientLight);
+    }
+
+    // --- Modell nur einmal laden ---
+    if (!modelRef.current) {
+      const loader = new GLTFLoader();
+      loader.load(
+        "/models/scene.glb",
+        (gltf) => {
+          const model = gltf.scene;
+          model.name = "myModel";
+          model.scale.set(0.45, 0.45, 0.45);
+          model.position.z = -0.5;
+
+          model.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              const mesh = child as THREE.Mesh;
+              mesh.castShadow = true;
+              mesh.receiveShadow = true;
+              if (
+                (mesh.material as THREE.MeshStandardMaterial)
+                  .envMapIntensity !== undefined
+              ) {
+                (
+                  mesh.material as THREE.MeshStandardMaterial
+                ).envMapIntensity = 1.5;
+              }
+            }
+          });
+
+          scene.add(model);
+          modelRef.current = model;
+        },
+        undefined,
+        (err) => console.error("Fehler beim Laden:", err)
+      );
+    }
+
+    // --- Resize ---
     const handleResize = () => {
       if (!containerRef.current) return;
       const width = containerRef.current.clientWidth;
       const height = containerRef.current.clientHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      renderer!.setSize(width, height);
     };
     window.addEventListener("resize", handleResize);
 
-    // Animation
+    // --- Animation Loop ---
+    let frameId: number;
     const animate = () => {
-      requestAnimationFrame(animate);
-
-      if (model) model.rotation.y += 0.005;
-      renderer.render(scene, camera);
+      frameId = requestAnimationFrame(animate);
+      if (modelRef.current) modelRef.current.rotation.y += 0.005;
+      renderer!.render(scene, camera);
     };
     animate();
 
+    // --- Cleanup ---
     return () => {
+      cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
-      renderer.dispose();
-      containerRef.current?.removeChild(renderer.domElement);
+      // Wichtig: Renderer nicht destroyen, sonst bei StrictMode kaputt.
+      // Falls du es unbedingt willst: renderer?.dispose();
     };
   }, []);
 
