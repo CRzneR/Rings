@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GradientActionButton } from "./gradientButton";
 import Heading from "./heading.comp";
 
@@ -16,9 +17,12 @@ export default function TextCard() {
         Schritte bis zum fertigen Ring an.
       </p>
       <div>
-        <button className="border-1 rounded-xl mt-4 bg-black text-white hover:bg-[#d1a054] font-semibold py-3 px-6 rounded shadow-md transition">
+        <Link
+          href="/rings"
+          className="mt-6 w-full sm:w-auto rounded-xl bg-black text-white hover:bg-[#d1a054] font-semibold py-3 px-6 shadow-md transition inline-block text-center"
+        >
           To the history
-        </button>
+        </Link>
       </div>
     </div>
   );

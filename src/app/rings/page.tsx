@@ -71,7 +71,7 @@ export default function TimelinePage() {
 
   return (
     <main className="my-24 relative mx-auto max-w-5xl p-8">
-      <h1 className="text-3xl font-bold text-center mb-16">
+      <h1 className="text-6xl font-bold text-center mb-16">
         Unsere Geschichte
       </h1>
 
