@@ -58,7 +58,7 @@ const BlurredScrollText = () => {
         <div
           className="w-full h-full bg-cover bg-center"
           style={{
-            backgroundImage: 'url("/img/IMG_1045.jpg")',
+            backgroundImage: 'url("/img/IMG1045.jpg")',
             filter: `blur(${blurAmount}px)`,
             transition: "filter 0.05s linear",
           }}
