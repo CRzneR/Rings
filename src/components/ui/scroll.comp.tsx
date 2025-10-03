@@ -24,7 +24,7 @@ export default function ScrollWindow() {
             className="relative w-[64vh] h-[33.6vh]"
           >
             <Image
-              src="/img/ring24.png"
+              src="/img/ring23wide.png"
               fill
               alt="Zentriertes Bild"
               className="object-cover"

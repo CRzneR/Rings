@@ -10,24 +10,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 const timelineEvents = [
   {
-    year: "1990",
+    year: "2021",
     text: "Gründung der Firma – die Reise beginnt.",
-    img: "/images/1990.jpg",
+    img: "/img/history/Ring21.jpg",
   },
   {
-    year: "2000",
+    year: "2022",
     text: "Erweiterung auf internationale Märkte.",
-    img: "/images/2000.jpg",
+    img: "/img/history/Ring22.png",
   },
   {
-    year: "2010",
+    year: "2023",
     text: "Einführung neuer innovativer Produkte.",
-    img: "/images/2010.jpg",
+    img: "/img/history/ring23.jpg",
   },
   {
-    year: "2020",
+    year: "2024",
     text: "Digitale Transformation und globaler Erfolg.",
-    img: "/images/2020.jpg",
+    img: "/img/history/ring24-2.png",
+  },
+  {
+    year: "2025",
+    text: "Digitale Transformation und globaler Erfolg.",
+    img: "/img/history/ring25.jpg",
   },
 ];
 

@@ -1,4 +1,4 @@
-// File: /Users/christoph/Documents/Programmieren/Webseiten/Rings/src/app/rings/page.tsx
+// File: /Users/christoph/Documents/GitHub/Rings/src/app/rings/page.tsx
 import * as entry from '../../../../src/app/rings/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
