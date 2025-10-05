@@ -1,7 +1,7 @@
 // src/app/contact/page.tsx
 export default function ContactPage() {
   return (
-    <main className="p-8">
+    <main className="my-32 p-8 max-w-7xl mx-auto ">
       <h1 className="text-2xl font-bold mb-4">Kontakt</h1>
       <p className="mb-6">Schreib uns gerne eine Nachricht:</p>
 
@@ -23,7 +23,7 @@ export default function ContactPage() {
         ></textarea>
         <button
           type="submit"
-          className="bg-blue-600 text-white rounded p-2 hover:bg-blue-700"
+          className="bg-black text-white rounded p-2 hover:bg-[#d1a054]"
         >
           Absenden
         </button>

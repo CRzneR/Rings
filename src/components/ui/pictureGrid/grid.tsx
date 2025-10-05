@@ -28,7 +28,7 @@ export default function ImageGrid() {
           className="w-full h-[400px] md:h-[670px] bg-red-500 shadow-lg"
         >
           <Picture
-            imageSrc="/img/detail3.png"
+            imageSrc="/img/ring24perspektive2.png"
             title="Ring 2024"
             country="Perspektive"
           />
