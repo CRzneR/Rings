@@ -11,27 +11,27 @@ gsap.registerPlugin(ScrollTrigger);
 const timelineEvents = [
   {
     year: "2021",
-    text: "Gründung der Firma – die Reise beginnt.",
+    text: "Die Tradition besteh bereits schon seit 2019, doch 2021 wurden zum ersten Mal Championship Ringe an das Siegerteam übergeben. Aus einem 3D Drucker mit SLA Technik hergestellt und lackiert",
     img: "/img/history/Ring21.jpg",
   },
   {
     year: "2022",
-    text: "Erweiterung auf internationale Märkte.",
+    text: "Im folgenden Jahr wurden die Ringe weiterentwickelt und das Design verfeinert. Dabei orientiert sich das Design immer am Sport. Die Aufstellung der Becher wurde hier dargestellt.",
     img: "/img/history/Ring22.png",
   },
   {
     year: "2023",
-    text: "Einführung neuer innovativer Produkte.",
+    text: "Zum erssten Mal ist der Championship Ring in der Farbe Gold gehalten. Die Drucktechnik hat sich weiterentwicklet und es sind feinere Details möglich.",
     img: "/img/history/ring23.jpg",
   },
   {
     year: "2024",
-    text: "Digitale Transformation und globaler Erfolg.",
+    text: "Die tradition besagt, dass der Austragungsort sich den Gewinnern des Vorjahres anpasst.",
     img: "/img/history/ring24-2.png",
   },
   {
     year: "2025",
-    text: "Digitale Transformation und globaler Erfolg.",
+    text: "Der nächste Schritt. 18 Karat Gold und Silber wurden mit neuem Verfahren verarbeitet. Die Ringe sind nun robuster und haben sich in ihrer Wertigkeit stark gesteigert.",
     img: "/img/history/ring25.jpg",
   },
 ];
@@ -100,25 +100,23 @@ export default function TimelinePage() {
                     <h2 className="text-2xl font-bold">{event.year}</h2>
                     <p className="mt-2">{event.text}</p>
                   </div>
-                  <div className="w-5/12 pl-6">
+                  <div className="relative w-full max-w-[400px] aspect-[3/4]">
                     <Image
                       src={event.img}
                       alt={event.year}
-                      width={500}
-                      height={300}
-                      className="rounded-xl shadow-md object-cover"
+                      fill
+                      className="rounded-xl  object-cover"
                     />
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="w-5/12 pr-6">
+                  <div className="relative w-full max-w-[400px] aspect-[3/4]">
                     <Image
                       src={event.img}
                       alt={event.year}
-                      width={500}
-                      height={300}
-                      className="rounded-xl shadow-md object-cover"
+                      fill
+                      className="rounded-xl  object-cover"
                     />
                   </div>
                   <div className="w-5/12 text-left pl-6">

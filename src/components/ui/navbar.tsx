@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; // Icons für Burger & Close
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 p-4 w-4/5 border rounded-xl border-gray-400 backdrop-blur-sm z-50">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 p-4 w-4/5 border rounded-xl border-gray-400 backdrop-blur-sm z-50">
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="text-xl font-bold text-black">

@@ -4,11 +4,32 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import TextCard from "./textCard.comp";
 
-const XScrollComp = () => {
-  return <HorizontalScrollCarousel />;
+type XScrollCompProps = {
+  className?: string;
+  cardClassName?: string;
 };
 
-const HorizontalScrollCarousel = () => {
+const XScrollComp = ({
+  className = "",
+  cardClassName = "",
+}: XScrollCompProps) => {
+  return (
+    <HorizontalScrollCarousel
+      className={className}
+      cardClassName={cardClassName}
+    />
+  );
+};
+
+type HorizontalScrollCarouselProps = {
+  className?: string;
+  cardClassName?: string;
+};
+
+const HorizontalScrollCarousel = ({
+  className = "",
+  cardClassName = "",
+}: HorizontalScrollCarouselProps) => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -19,7 +40,7 @@ const HorizontalScrollCarousel = () => {
   return (
     <section
       ref={targetRef}
-      className="relative h-[200vh] sm:h-[250vh] md:h-[300vh]"
+      className={`relative h-[200vh] sm:h-[250vh] md:h-[300vh] ${className}`}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div
@@ -28,7 +49,7 @@ const HorizontalScrollCarousel = () => {
         >
           <TextCard />
           {cards.map((card) => (
-            <Card key={card.id} card={card} />
+            <Card key={card.id} card={card} className={cardClassName} />
           ))}
         </motion.div>
       </div>
@@ -42,13 +63,14 @@ type CardProps = {
     title: string;
     id: number;
   };
+  className?: string;
 };
 
-const Card = ({ card }: CardProps) => {
+const Card = ({ card, className = "" }: CardProps) => {
   return (
     <div
       key={card.id}
-      className="group relative h-[300px] w-[220px] sm:h-[400px] sm:w-[320px] md:h-[540px] md:w-[400px] lg:w-[500px] overflow-hidden rounded-xl shadow-lg"
+      className={`group relative h-[300px] w-[220px] sm:h-[400px] sm:w-[320px] md:h-[540px] md:w-[400px] lg:w-[500px] overflow-hidden rounded-xl shadow-lg ${className}`}
     >
       <div
         style={{
