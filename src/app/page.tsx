@@ -42,7 +42,7 @@ export default function Home() {
         </div>
       </section>
       <section className="bg-gray-100 ">
-        <ScrollWindow className="hidden md:block" />
+        <ScrollWindow className="hidden md:flex mb-30" />
         <ImageGrid />
       </section>
 
