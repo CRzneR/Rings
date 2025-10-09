@@ -30,15 +30,14 @@ export default function ScrollWindow({ className = "" }: ScrollWindowProps) {
           start: "top top",
           end: "+=1900vh",
           scrub: true,
-
-          markers: true,
+          markers: false,
         },
       }
     );
   }, []);
 
   return (
-    <div className={`flex justify-center w-full bg-black ${className}`}>
+    <div className={`flex justify-center w-full ${className}`}>
       <div ref={container} className="h-[350vh] relative w-full max-w-4xl">
         <div className="sticky top-0 h-screen flex items-center justify-center">
           <div ref={imageBox} className="relative w-[64vh] h-[33.6vh]">

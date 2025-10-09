@@ -16,7 +16,7 @@ export const TextElement: React.FC<TextElementProps> = ({ top, text }) => {
         </p>
 
         {/* Text */}
-        <p className="text-base sm:text-lg md:text-2xl my-6 sm:my-8 md:my-12 text-gray-700 font-light">
+        <p className="text-base sm:text-lg md:text-xl my-6 sm:my-8 md:my-12 text-gray-700 font-light">
           {text}
         </p>
       </div>

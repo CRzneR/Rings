@@ -121,7 +121,7 @@ const ThreeScene: React.FC = () => {
         (gltf) => {
           const model = gltf.scene;
           model.name = "myModel";
-          model.scale.set(0.45, 0.45, 0.45);
+          model.scale.set(0.5, 0.5, 0.5);
           model.position.z = -0.5;
 
           model.traverse((child) => {

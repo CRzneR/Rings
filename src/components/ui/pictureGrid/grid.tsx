@@ -18,7 +18,7 @@ export default function ImageGrid() {
 
   return (
     <div
-      className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 bg-gray-100 p-4 md:p-0"
+      className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10  p-4 md:p-0"
       ref={containerRef}
     >
       {/* Linke Spalte mit Parallax-Effekt */}

@@ -11,6 +11,7 @@ import Parallax from "@/components/ui/parallax";
 import Contact from "@/components/contact.comp";
 import BlurredScrollText from "@/components/BlurredScrollText";
 import XScrollCompMobile from "@/components/ui/XScrollCompMobile";
+import { TextElement2 } from "@/components/TextElement2";
 
 export default function Home() {
   const items = Array.from({ length: 10 }, (_, i) => <div>Item {i + 1}</div>);
@@ -39,11 +40,15 @@ export default function Home() {
         />
         <div>
           <ThreeScene />
+          <TextElement2
+            top="Siegen für die Ewigkeit"
+            text="Jeder Ring wird in aufwendiger Handarbeit an die besonderen Ereignisse des jeweiligen Jahres angepasst und erhält dadurch seinen ganz eigenen Charakter. In die Details fließen sorgfältig Statistiken, bedeutende Namen und prägende Momente ein, die das Jahr geprägt haben. Darüber hinaus wird auch ein Bezug zum Austragungsort geschaffen, indem charakteristische Elemente der Stadt oder Region in das Design integriert werden. So entsteht ein einzigartiges Schmuckstück, das nicht nur als Trophäe dient, sondern auch eine emotionale Erinnerung an Geschichte, Leistungen und Atmosphäre des jeweiligen Jahres verkörpert."
+          />
+          <ImageGrid />
         </div>
       </section>
-      <section className="bg-gray-100 ">
-        <ScrollWindow className="hidden md:flex mb-30" />
-        <ImageGrid />
+      <section className="hidden md:flex">
+        <ScrollWindow />
       </section>
 
       <Contact />
